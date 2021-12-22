@@ -27,41 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     void _signin() async {
-      if (_formKey.currentState!.validate()) {
-        final response = await ApiCalls.signIn(
-            email: _emailAddress.text, password: _password.text);
-
-        if (response.isSuccess) {
-          var json = response.jsonBody;
-          await Settings.setSigned(true);
-          String accessToken = json['token'];
-          await Settings.setAccessToken(accessToken);
-          String userID = json['_id'];
-          await Settings.setUserID(userID);
-          String fName = json['first_name'];
-          await Settings.setFName(fName);
-          String lName = json['last_name'];
-          await Settings.setLName(lName);
-          String userPhone = json['mobile'];
-          await Settings.setUserPhone(userPhone);
-          String userEmail = json['email'];
-          await Settings.setUserEmail(userEmail);
-
-          Fluttertoast.showToast(
-            msg: "Welcome",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-          );
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => HomeScreen()));
-        } else {
-          Fluttertoast.showToast(
-            msg: "Please recheck credentials",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-          );
-        }
-      }
+      if (_formKey.currentState!.validate()) {}
     }
 
     return Scaffold(

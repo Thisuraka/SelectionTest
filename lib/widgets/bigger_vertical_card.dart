@@ -1,21 +1,21 @@
+import 'package:selection_test/api/api_calls.dart';
+
 import '../../styles.dart';
 import 'package:flutter/material.dart';
 
 class BigVerticalCard extends StatelessWidget {
-  String adID;
-  String adImg;
-  String adModel;
-  String adBrand;
-  String adCatagory;
-  String adPrice;
+  String country;
+  String countryCode;
+  String regionName;
+  String city;
+  String zip;
 
   BigVerticalCard({
-    required this.adID,
-    required this.adImg,
-    this.adBrand = "",
-    this.adModel = "",
-    this.adCatagory = "",
-    required this.adPrice,
+    required this.country,
+    required this.countryCode,
+    required this.regionName,
+    required this.city,
+    required this.zip,
   });
 
   @override
@@ -23,7 +23,7 @@ class BigVerticalCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 170,
+          width: 370,
           height: 220,
           margin: EdgeInsets.only(left: 15, right: 10, top: 10),
           decoration: BoxDecoration(
@@ -35,79 +35,87 @@ class BigVerticalCard extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.4),
                 spreadRadius: 3,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: Offset(0, 3),
               ),
             ],
           ),
           child: Stack(
             children: [
               Container(
-                width: 170,
-                height: 140,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                child: ClipRRect(
-                  child: adImg.isNotEmpty
-                      ? Image.network(
-                          adImg,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
-                          'assets/images/avatar.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
+                height: 100,
+                width: double.infinity,
+                margin: EdgeInsets.only(left: 20, top: 20, right: 10),
+                child: Center(
+                  child: Text(
+                    country,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                        width: 5.0, color: Colors.lightBlue.shade900),
+                  ),
                 ),
               ),
               Container(
-                height: 30,
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 150, left: 6, right: 2),
-                child: Text(
-                  adModel,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600),
+                height: 110,
+                width: 60,
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 33, left: 13),
+                  child: Text(
+                    countryCode,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                        width: 5.0, color: Colors.lightBlue.shade500),
+                    bottom: BorderSide(
+                        width: 5.0, color: Colors.lightBlue.shade900),
+                  ),
                 ),
               ),
-              adBrand != ""
-                  ? Container(
-                      height: 30,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 175, left: 6, right: 2),
-                      child: Text(
-                        adBrand,
-                        style: TextStyle(color: Colors.black, fontSize: 14),
-                      ),
-                    )
-                  : Container(),
-              adCatagory != ""
-                  ? Container(
-                      height: 30,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 175, left: 6, right: 2),
-                      child: Text(
-                        adCatagory,
-                        style: TextStyle(color: Colors.black, fontSize: 14),
-                      ),
-                    )
-                  : Container(),
               Container(
-                height: 30,
+                height: 45,
                 width: double.infinity,
-                margin: EdgeInsets.only(top: 195, left: 6, right: 2),
-                child: Text(
-                  adPrice,
-                  maxLines: 2,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14),
+                margin: EdgeInsets.only(top: 130, left: 10, right: 10),
+                child: Center(
+                  child: Text(
+                    city + "  -  " + regionName,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              )
+              ),
+              Container(
+                height: 45,
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 170, left: 10, right: 10),
+                child: Center(
+                  child: Text(
+                    zip,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         )

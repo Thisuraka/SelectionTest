@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selection_test/screens/onboarding/login_screen.dart';
-import 'package:selection_test/screens/testscreens/testScreen2.dart';
 import 'package:selection_test/screens/onboarding/splash_screen.dart';
 import 'package:selection_test/screens/home_screen.dart';
 
@@ -25,7 +24,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Roboto'),
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }

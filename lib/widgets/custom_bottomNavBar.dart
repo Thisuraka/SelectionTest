@@ -15,15 +15,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   bool _signed = false;
 
-  getStatus() async {
-    await Settings.getSigned().then((value) => {_signed = value!});
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    getStatus();
   }
 
   void onTabTapped(int index) {

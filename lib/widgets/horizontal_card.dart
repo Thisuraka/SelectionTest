@@ -99,20 +99,7 @@ class _HorizontalCardState extends State<HorizontalCard> {
             ),
           ),
           GestureDetector(
-            onTap: () => {
-              if (widget.adType == "Part")
-                {
-                  ApiCalls.deletePartAd(adID: widget.adID, token: _token),
-                  widget.onChange(true)
-                }
-              else if (widget.adType == "Vehicle")
-                {
-                  ApiCalls.deleteVehicleAd(adID: widget.adID, token: _token),
-                  widget.onChange(true)
-                }
-              else
-                {null}
-            },
+            onTap: () => {},
             child: Container(
               margin: EdgeInsets.only(left: 320, top: 50),
               width: 30,
