@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selection_test/screens/onboarding/login_screen.dart';
 import 'package:selection_test/screens/onboarding/splash_screen.dart';
 import 'package:selection_test/screens/home_screen.dart';
+import 'package:selection_test/screens/view_details_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,18 +30,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-// AddPartScreen(),
-// EditVehicleScreen(),
-// ViewPartScreen(),
-// ViewVehicleScreen(),
-// AddVehicleScreen(),
-// PartListScreen(),
-// VehicleListScreen(),
-// FavoritesScreen(),
+//ViewDetailsScreen
 // HomeScreen(),
-// UserProfile(),
-// EditProfileScreen(),
 // LoginScreen(),
 // SplashScreen(),
-
-// TestScreen2(),

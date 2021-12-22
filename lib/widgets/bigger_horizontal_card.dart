@@ -3,14 +3,14 @@ import 'package:selection_test/api/api_calls.dart';
 import '../../styles.dart';
 import 'package:flutter/material.dart';
 
-class BigVerticalCard extends StatelessWidget {
+class BigHorizontalCard extends StatelessWidget {
   String country;
   String countryCode;
   String regionName;
   String city;
   String zip;
 
-  BigVerticalCard({
+  BigHorizontalCard({
     required this.country,
     required this.countryCode,
     required this.regionName,

@@ -7,7 +7,6 @@ import 'package:selection_test/utils/settings.dart';
 import 'package:selection_test/utils/validate.dart';
 import 'package:selection_test/widgets/custom_appbar.dart';
 import 'package:selection_test/widgets/custom_button.dart';
-import 'package:selection_test/widgets/custom_button2.dart';
 import 'package:selection_test/widgets/custom_textbox.dart';
 
 import '../home_screen.dart';

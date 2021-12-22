@@ -24,8 +24,18 @@ class _CustomAppbarWidgetState extends State<CustomAppbarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      leading: widget.leadingImg
+          ? Container(
+              width: 15,
+            )
+          : GestureDetector(
+              onTap: () => {Navigator.of(context).pop()},
+              child: Image.asset('assets/icons/arrow-left.png')),
       title: widget.logo
-          ? Center(child: Text("Selection Test", style: LogoText))
+          ? Padding(
+              padding: const EdgeInsets.only(left: 50),
+              child: Text("Selection Test", style: LogoText),
+            )
           : Text(
               widget.mainTitle,
               style: HeaderStyle,

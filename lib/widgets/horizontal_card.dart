@@ -1,45 +1,29 @@
 import 'package:selection_test/api/api_calls.dart';
-
-import 'package:selection_test/utils/settings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../styles.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalCard extends StatefulWidget {
   _HorizontalCardState createState() => _HorizontalCardState();
-  String adID;
-  String adImg;
-  String adBrand;
-  String adModel;
-  String adCatagory;
-  String adPrice;
-  String adType;
+  String img;
+  String name;
+
   final void Function(bool) onChange;
 
   HorizontalCard({
-    required this.adID,
-    this.adImg = '',
-    this.adBrand = '',
-    this.adCatagory = '',
+    required this.img,
+    required this.name,
     required this.onChange,
-    required this.adModel,
-    required this.adPrice,
-    required this.adType,
   });
 }
 
 class _HorizontalCardState extends State<HorizontalCard> {
   String _token = "";
 
-  void getUser() async {
-    await Settings.getAccessToken().then((value) => {_token = value!});
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    getUser();
   }
 
   @override
@@ -67,101 +51,22 @@ class _HorizontalCardState extends State<HorizontalCard> {
             width: 100,
             height: 100,
             child: ClipRRect(
-              child: widget.adImg.isNotEmpty
-                  ? Image.network(
-                      widget.adImg,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      'assets/images/avatar.jpg',
-                      fit: BoxFit.cover,
-                    ),
+              child: SvgPicture.network(
+                widget.img,
+                fit: BoxFit.cover,
+              ),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          GestureDetector(
-            onTap: () => {
-              if (widget.adType == "Part")
-                {}
-              else if (widget.adType == "Vehicle")
-                {}
-              else
-                {null}
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 320, top: 5),
-              width: 25,
-              height: 25,
-              child: Image.asset(
-                'assets/icons/edit2.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => {},
-            child: Container(
-              margin: EdgeInsets.only(left: 320, top: 50),
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                'assets/icons/bin.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
           Container(
             width: 190,
-            margin: EdgeInsets.only(top: 10, left: 120),
+            margin: EdgeInsets.only(top: 30, left: 120),
             child: Text(
-              widget.adModel,
+              widget.name,
               style: TextStyle(
-                  fontFamily: DefaultFont,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0),
+                  fontFamily: DefaultFont, color: Colors.black, fontSize: 18.0),
             ),
           ),
-          Container(
-            width: 190,
-            margin: EdgeInsets.only(top: 37, left: 120),
-            child: widget.adBrand != ""
-                ? Text(
-                    widget.adBrand,
-                    style: TextStyle(
-                        fontFamily: DefaultFont,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0),
-                  )
-                : null,
-          ),
-          Container(
-            width: 190,
-            margin: EdgeInsets.only(top: 37, left: 120),
-            child: widget.adCatagory != ""
-                ? Text(
-                    widget.adCatagory,
-                    style: TextStyle(
-                        fontFamily: DefaultFont,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0),
-                  )
-                : null,
-          ),
-          Container(
-            width: 190,
-            margin: EdgeInsets.only(top: 65, left: 120),
-            child: Text(
-              widget.adPrice,
-              style: TextStyle(
-                  fontFamily: DefaultFont,
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0),
-            ),
-          )
         ],
       ),
     );

@@ -4,11 +4,10 @@ import 'package:http/http.dart' as http;
 import 'api_response.dart';
 import 'api_status.dart';
 
-const baseLocationUrl = "http://ip-api.com/json";
 const timeout = 80;
 
 class ApiCaller {
-  static Future<ApiResponse> getLocationRequest(
+  static Future<ApiResponse> getLocationRequest(String baseUrl,
       {Map<String, String>? headers}) async {
     try {
       var connectivityResult = await (Connectivity().checkConnectivity());
@@ -19,9 +18,9 @@ class ApiCaller {
         if (headers != null && headers.length > 0) {
           allHeaders.addAll(headers);
         }
-        print("Url: " + baseLocationUrl);
+        print("Url: " + baseUrl);
         final response = await http
-            .get(Uri.parse(baseLocationUrl), headers: headers)
+            .get(Uri.parse(baseUrl), headers: headers)
             .timeout(const Duration(seconds: timeout));
         print(response.statusCode.toString() + "  Response: " + response.body);
 

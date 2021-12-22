@@ -27,7 +27,7 @@ dependencies:
   flutter_animator: ^3.1.2
 
   google_fonts: ^2.1.1
-
+  flutter_svg: ^1.0.0
   smooth_page_indicator: ^1.0.0+2
   fluttertoast: ^8.0.8
   cupertino_icons: ^1.0.2
