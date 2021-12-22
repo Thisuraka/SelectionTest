@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       autoPlay: AnimationPlayStates.Loop),
                   child: Container(
                       alignment: const Alignment(0.0, 0.0),
-                      child: Text("Selection \nTest",
+                      child: Text("Selection Test",
                           textAlign: TextAlign.center, style: SplashLogoText)),
                 ),
               ],

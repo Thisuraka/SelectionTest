@@ -3,12 +3,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:selection_test/api/api_calls.dart';
 import 'package:selection_test/styles.dart';
-import 'package:selection_test/utils/settings.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:selection_test/utils/validate.dart';
 import 'package:selection_test/widgets/custom_appbar.dart';
 import 'package:selection_test/widgets/custom_button.dart';
 import 'package:selection_test/widgets/custom_textbox.dart';
-
 import '../home_screen.dart';
 
 @override
@@ -17,6 +16,8 @@ void initState() {}
 class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
+
+// https://selectiontest-3d5ef.firebaseapp.com/__/auth/handler
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -34,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
         preferredSize: const Size.fromHeight(55),
         child: CustomAppbarWidget(
           mainTitle: "Login",
-          leadingImg: false,
-          logo: false,
+          leadingImg: true,
+          logo: true,
           searchIcon: false,
         ),
       ),
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 20, top: 30),
-                          child: Text("selection_test",
+                          child: Text("Login",
                               style: TextStyle(
                                   fontFamily: DefaultFont,
                                   color: DefaultColor,

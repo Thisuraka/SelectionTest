@@ -10,7 +10,7 @@ const SuccessAlertColor = Color(0xFFB5BF24);
 const String DefaultFont = 'Roboto';
 
 const SplashLogoText =
-    TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold);
 
 const LogoText = TextStyle(
     fontFamily: DefaultFont,

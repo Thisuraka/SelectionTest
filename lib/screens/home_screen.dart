@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:selection_test/api/api_calls.dart';
 import 'package:selection_test/screens/view_details_screen.dart';
-import 'package:selection_test/utils/settings.dart';
 import 'package:selection_test/styles.dart';
 import 'package:selection_test/widgets/bigger_horizontal_card.dart';
 import 'package:selection_test/widgets/custom_appbar.dart';
-import 'package:selection_test/widgets/custom_bottomNavBar.dart';
 import 'package:selection_test/widgets/horizontal_card.dart';
 
 @override
@@ -75,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               searchIcon: true,
             ),
           ),
-          bottomNavigationBar: BottomNavbar(),
           body: _loaded
               ? Container(
                   child: Stack(
