@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:selection_test/api/api_calls.dart';
 import 'package:selection_test/screens/view_details_screen.dart';
 import 'package:selection_test/styles.dart';
@@ -77,15 +78,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ? Container(
                   child: Stack(
                     children: [
-                      Container(
-                        height: double.infinity,
-                        width: MediaQuery.of(context).size.width,
-                        child: BigHorizontalCard(
-                          city: city!,
-                          countryCode: countryCode!,
-                          regionName: regionName!,
-                          country: country!,
-                          zip: zip!,
+                      GestureDetector(
+                        onTap: () {
+                          Fluttertoast.showToast(
+                            msg: "Refreshing...",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
+                          locationGetter();
+                        },
+                        child: Container(
+                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          child: BigHorizontalCard(
+                            city: city!,
+                            countryCode: countryCode!,
+                            regionName: regionName!,
+                            country: country!,
+                            zip: zip!,
+                          ),
                         ),
                       ),
                       Container(

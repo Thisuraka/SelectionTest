@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selection_test/screens/home_screen.dart';
+import 'package:selection_test/screens/onboarding/login_screen.dart';
 import 'package:selection_test/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animator/flutter_animator.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 4), () {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => LoginScreen(),
         ),
       );
     });

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'api_status.dart';
@@ -12,9 +14,7 @@ class ApiResponse {
 
   ApiResponse({this.response, bool validateToken = true}) {
     if (validateToken) {
-      if (response != null &&
-          response!.statusCode != null &&
-          response!.statusCode == 401) {
+      if (response != null && response!.statusCode == 401) {
         isSuccess = false;
         _setErrorMessage("Token expired");
         apiStatus = ApiStatus.CLIENT_ERROR;

@@ -23,7 +23,7 @@ class BigHorizontalCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 370,
+          width: double.infinity,
           height: 220,
           margin: EdgeInsets.only(left: 15, right: 10, top: 10),
           decoration: BoxDecoration(

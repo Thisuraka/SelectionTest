@@ -1,35 +1,96 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:selection_test/api/api_calls.dart';
 import 'package:selection_test/styles.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:selection_test/utils/validate.dart';
 import 'package:selection_test/widgets/custom_appbar.dart';
 import 'package:selection_test/widgets/custom_button.dart';
-import 'package:selection_test/widgets/custom_textbox.dart';
-import '../home_screen.dart';
 
-@override
-void initState() {}
+import '../home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-// https://selectiontest-3d5ef.firebaseapp.com/__/auth/handler
-
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _emailAddress = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  bool _loaded = true;
+  bool _loaded = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _signin() async {
+    setState(() {
+      _loaded = false;
+    });
+    try {
+      final facebookLoginResult = await FacebookAuth.instance.login();
+      final userData = await FacebookAuth.instance.getUserData();
+
+      final facebookAuthCredential = FacebookAuthProvider.credential(
+          facebookLoginResult.accessToken!.token);
+
+      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+
+      await FirebaseFirestore.instance.collection('users').add({
+        'email': userData['email'],
+        'imageUrl': userData['picture']['data']['url'],
+        'name': userData['name'],
+      });
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      var title = '';
+      switch (e.code) {
+        case 'account-exists-with-different-credentials':
+          title = "This account exists with a different sign in provider";
+          break;
+        case 'invalid-credential':
+          title = "Invalid Credentials detetced";
+          break;
+        case 'operation-not-allowed':
+          title = "This operation is not allowed";
+          break;
+        case 'user-disabled':
+          title = "The user you tried to login to is disabled";
+          break;
+        case 'user-not-found':
+          title = "The user you tried to login to was not found";
+          break;
+      }
+
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Login with Facebook failed'),
+                content: Text(title),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'))
+                ],
+              ));
+    } finally {
+      setState(() {
+        _loaded = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loaded = true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _signin() async {
-      if (_formKey.currentState!.validate()) {}
-    }
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(55),
@@ -53,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Stack(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 20, top: 30),
+                          padding: EdgeInsets.only(left: 110, top: 100),
                           child: Text("Login",
                               style: TextStyle(
                                   fontFamily: DefaultFont,
@@ -63,48 +124,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Container(
                           height: 510,
-                          margin: EdgeInsets.only(top: 150),
+                          margin: EdgeInsets.only(top: 300),
                           child: Form(
                             key: _formKey,
                             child: Column(
                               children: [
-                                CustomTextBox(
-                                  controller: _emailAddress,
-                                  hint: "Email address",
-                                  labelText: 'Email address',
-                                  prifixIcon: 'assets/icons/email.png',
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: (_emailAddress) {
-                                    if (_emailAddress.isEmpty) {
-                                      return "Please enter your email address";
-                                    }
-                                    Validate().validateEmail(_emailAddress);
-                                  },
-                                ),
-                                CustomTextBox(
-                                  controller: _password,
-                                  hint: "Password",
-                                  labelText: 'Password',
-                                  prifixIcon: 'assets/icons/lock.png',
-                                  keyboardType: TextInputType.visiblePassword,
-                                  obscureText: true,
-                                  validator: (_password) {
-                                    if (_password.isEmpty) {
-                                      return "Please enter your password";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
                                 GestureDetector(
                                   child: CustomButton(
-                                    text: "Login",
+                                    text: "Continue without logging in",
                                     width: 330.0,
                                   ),
                                   onTap: () {
-                                    _signin();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => HomeScreen(),
+                                      ),
+                                    );
                                   },
                                 ),
                                 SizedBox(
@@ -124,13 +159,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 25,
                                 ),
                                 GestureDetector(
-                                  child: Image.asset(
-                                      'assets/images/signGoogle.png'),
+                                  child: Container(
+                                    width: 200,
+                                    child: Image.asset(
+                                      'assets/images/signfb.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
                                   onTap: () {
+                                    _signin();
                                     Fluttertoast.showToast(
-                                      msg: "Coming soon...",
+                                      msg: "Loading...",
                                       toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
+                                      gravity: ToastGravity.BOTTOM,
                                     );
                                   },
                                 )
@@ -156,3 +197,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+// w5G662mc4o81BUzLaFO2xjZlnHw
